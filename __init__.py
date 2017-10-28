@@ -43,7 +43,7 @@ def search(query):
 
 def record(name, link):
     with open('records/records.txt', 'w+') as f:
-        f.write(name + ',https://' + link)
+        f.write(name + ',https://ipfs.io/ipfs/' + link)
     return True
 
 
