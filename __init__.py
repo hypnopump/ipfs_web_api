@@ -38,7 +38,7 @@ def search(query):
         if len(line) > 2:
             args = line.split(',')
             if query in args[0].split(' '):
-                sols.append({"name": args[0]}, args[1])
+                sols.append({"name": args[0],"link": args[1]})
     return str(sols)
 
 def record(name, link):
