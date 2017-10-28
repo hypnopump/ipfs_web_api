@@ -39,7 +39,7 @@ def search(query):
             args = line.split(',')
             if query in args[0].split(' '):
                 sols.append({"name": args[0],"link": args[1]})
-    return str(sols)
+    return json.dumps(sols)
 
 def record(name, link):
     with open('records/records.txt', 'w+') as f:
