@@ -9,9 +9,9 @@ import json
 
 app = Flask(__name__)
 
-
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+vault = "static/data/records.txt"
 
 
 @app.route('/')
@@ -29,21 +29,26 @@ def add(name, link):
 def queried(query):
     return search(query)
 
+@cross_origin()
+@app.route('/<error>/')
+def err(error):
+    return "Error"
+
 
 def search(query):
     sols = []
-    with open('records/records.txt', 'r') as f:
+    with open(vault, 'r') as f:
         r = f.readlines()
     for line in r:
         if len(line) > 2:
             args = line.split(',')
             if query in args[0].split(' '):
-                sols.append({"name": args[0],"link": args[1]})
+                sols.append({"name": args[0],"link": args[1][:-2]})
     return json.dumps(sols)
 
 def record(name, link):
-    with open('records/records.txt', 'w+') as f:
-        f.write(name + ',https://ipfs.io/ipfs/' + link)
+    with open(vault, 'a') as f:
+        f.write(name + ',https://ipfs.io/ipfs/' + link + "\n")
     return True
 
 
