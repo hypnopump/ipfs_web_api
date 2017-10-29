@@ -48,7 +48,7 @@ def search(query):
 
 def record(name, link):
     with open(vault, 'a') as f:
-        f.write(name + ',https://ipfs.io/ipfs/' + link + "\n")
+        f.write(name + ',https://ipfs.io/ipfs/' + link + "/\n")
     return True
 
 

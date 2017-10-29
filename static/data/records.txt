@@ -2,3 +2,4 @@ lilo,https://ipfs.io/ipfs/sticht
 lol,https://ipfs.io/ipfs/loler
 lol,https://ipfs.io/ipfs/lolasso
 lol,https://ipfs.io/ipfs/dafuq
+decentralized cloud,https://ipfs.io/ipfs/QmUrHNRATthTJSiWokdLHjZonp1aDTfx9wURyKH9TacnvR/
