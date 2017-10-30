@@ -48,7 +48,7 @@ def search(query):
     q = models.Reg.query.all()
     for line in q:
         if query in line.name.split(" "):
-            sols.append({"name": str(line.name),"link": str(line.link)})
+            sols.append({"name": str(line.name),"link": str(line.hash)})
     return json.dumps(sols)
 
 def record(name, link):
