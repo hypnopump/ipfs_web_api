@@ -14,7 +14,7 @@ app.config.from_pyfile('utils/config.py')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-from utils.models import *
+from utils import models
 db.create_all()
 
 cors = CORS(app)
@@ -45,7 +45,7 @@ def err(error):
 
 def search(query):
     sols = []
-    q = Reg.query.all()
+    q = models.Reg.query.all()
     return q
     for line in q:
         if len(line) > 2:
@@ -55,7 +55,7 @@ def search(query):
     return json.dumps(sols)
 
 def record(name, link):
-    reg = Reg(name, link, title)
+    reg = models.Reg(name, link, title)
     db.session.add(reg)
     db.session.commit()
     return True
