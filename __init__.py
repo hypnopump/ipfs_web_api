@@ -14,7 +14,7 @@ app.config.from_pyfile('utils/config.py')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-from utils import models
+from utils.models import *
 db.create_all()
 
 cors = CORS(app)
