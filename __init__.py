@@ -55,8 +55,9 @@ def search(query):
     return json.dumps(sols)
 
 def record(name, link):
-    with open(vault, 'a') as f:
-        f.write(name + ',https://ipfs.io/ipfs/' + link + "/\n")
+    reg = Reg(name, link, title)
+    db.session.add(reg)
+    db.session.commit()
     return True
 
 
