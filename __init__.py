@@ -46,7 +46,7 @@ def err(error):
 def search(query):
     sols = []
     q = models.Reg.query.all()
-    return q
+    return str(q)
     for line in q:
         if len(line) > 2:
             args = line.split(',')
