@@ -46,16 +46,13 @@ def err(error):
 def search(query):
     sols = []
     q = models.Reg.query.all()
-    return str(q)
     for line in q:
-        if len(line) > 2:
-            args = line.split(',')
-            if query in args[0].split(" "):
-                sols.append({"name": args[0],"link": args[1][:-2]})
+        if query in line.name.split(" "):
+            sols.append({"name": str(line.name),"link": str(line.link)})
     return json.dumps(sols)
 
 def record(name, link):
-    reg = models.Reg(name, link)
+    reg = models.Reg(name, "https://ipfs.io/ipfs/"+link+"/")
     db.session.add(reg)
     db.session.commit()
     return True
