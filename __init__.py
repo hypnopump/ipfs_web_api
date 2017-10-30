@@ -4,10 +4,18 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 import json
 
 app = Flask(__name__)
+app.config.from_pyfile('utils/config.py')
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+from utils import models
+db.create_all()
 
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -37,12 +45,12 @@ def err(error):
 
 def search(query):
     sols = []
-    with open(vault, 'r') as f:
-        r = f.readlines()
-    for line in r:
+    q = Reg.query.all()
+    return q
+    for line in q:
         if len(line) > 2:
             args = line.split(',')
-            if query in args[0].split(' '):
+            if query in args[0].split(" "):
                 sols.append({"name": args[0],"link": args[1][:-2]})
     return json.dumps(sols)
 
@@ -54,7 +62,7 @@ def record(name, link):
 
 if __name__ == '__main__':
     # Deploying
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    # port = int(os.environ.get("PORT", 5000))
+    # app.run(host='0.0.0.0', port=port)
     # Debugging
-    # app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
