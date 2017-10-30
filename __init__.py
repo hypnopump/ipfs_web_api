@@ -55,7 +55,7 @@ def search(query):
     return json.dumps(sols)
 
 def record(name, link):
-    reg = models.Reg(name, link, title)
+    reg = models.Reg(name, link)
     db.session.add(reg)
     db.session.commit()
     return True
