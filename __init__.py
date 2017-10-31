@@ -19,7 +19,6 @@ db.create_all()
 
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-vault = "static/data/records.txt"
 
 
 @app.route('/')
