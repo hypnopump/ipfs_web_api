@@ -41,6 +41,8 @@ def queried(query):
 def delete(name, link):
     if erase(name, link):
         return "SUCCESS!"
+    else:
+        return "FAILURE"
 
 @cross_origin()
 @app.route('/<error>/')
@@ -62,7 +64,10 @@ def record(name, link):
     return True
 
 def erase(name, link):
-    return None
+    reg = models.Reg(name, link)
+    db.session.delete(reg)
+    db.session.commit()
+    return True
 
 def listed():
     sols = []
