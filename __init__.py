@@ -64,7 +64,7 @@ def record(name, link):
     return True
 
 def erase(name, link):
-    reg = models.Reg(name, link)
+    reg = User.query.filter_by(username='name').first()
     db.session.delete(reg)
     db.session.commit()
     return True
