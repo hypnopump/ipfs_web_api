@@ -4,11 +4,18 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 import json
 
 app = Flask(__name__)
+app.config.from_pyfile('utils/config.py')
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+from utils import models
+db.create_all()
 
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -29,8 +36,14 @@ def add(name, link):
 def queried(query):
     return search(query)
 
+@cross_origin()
+@app.route('/<error>/')
+def err(error):
+    return "Error"
+
 
 def search(query):
+<<<<<<< HEAD
 <<<<<<< HEAD
 	sols = []
 	with open('records/records.txt', 'r') as f:
@@ -54,10 +67,19 @@ def search(query):
     return json.dumps("data": {"id": "42", "username": "zbeeble", "full_name": "Zaphod Beeblebrox", "be_like": ["Yahweh", "The Messiah", "Godzilla"], "like_tags": ["landscape", "adventure"]})
 >>>>>>> a9e979ff3da4c6930ab5edab270a3b384143d87e
 
+=======
+    sols = []
+    q = models.Reg.query.all()
+    for line in q:
+        if query in line.name.split(" "):
+            sols.append({"name": str(line.name),"link": str(line.hash)})
+    return json.dumps(sols)
+>>>>>>> 745a7103721c6d22a30992fafff05dfe32b4c859
 
 def record(name, link):
-    with open('records/records.txt', 'w+') as f:
-        f.write(name + ',https://' + link)
+    reg = models.Reg(name, "https://ipfs.io/ipfs/"+link+"/")
+    db.session.add(reg)
+    db.session.commit()
     return True
 
 
