@@ -23,10 +23,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def home():
-    try:
-        return listed()
-    except:
-        return "IPFS Decentralized Webpages Under Construction"
+    return listed()
 
 @cross_origin()
 @app.route('/add/<name>/<link>/')
@@ -68,7 +65,11 @@ def erase(name, link):
     return None
 
 def listed():
-    return json.dumps(models.Reg.query.all())
+    sols = []
+    q = models.Reg.query.all()
+    for line in q:
+        sols.append({"name": str(line.name),"link": str(line.hash)})
+    return json.dumps(sols)
 
 
 if __name__ == '__main__':
