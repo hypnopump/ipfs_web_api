@@ -43,8 +43,6 @@ def err(error):
 
 
 def search(query):
-<<<<<<< HEAD
-<<<<<<< HEAD
 	sols = []
 	with open('records/records.txt', 'r') as f:
 		r = f.readlines()
