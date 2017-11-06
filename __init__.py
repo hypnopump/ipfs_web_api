@@ -50,7 +50,6 @@ def delete(name, link):
 def err(error):
     return "Error"
 
-
 def search(query):
     sols = []
     q = models.Reg.query.all()
