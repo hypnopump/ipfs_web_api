@@ -41,38 +41,13 @@ def queried(query):
 def err(error):
     return "Error"
 
-
 def search(query):
-	sols = []
-	with open('records/records.txt', 'r') as f:
-		r = f.readlines()
-	for line in r:
-		if len(line) > 2:
-			args = line.split(',')
-			if query in args[0].split(' '):
-				sols.append({"name": args[0], "link": args[1]})
-	return json.dumps(sols)
-=======
-    sols = []
-    with open('records/records.txt', 'r') as f:
-        r = f.readlines()
-    for line in r:
-        if len(line) > 2:
-            args = line.split(',')
-            if query in args[0].split(' '):
-                sols.append({"name": args[0]}, args[1])
-    output = {"results": }
-    return json.dumps("data": {"id": "42", "username": "zbeeble", "full_name": "Zaphod Beeblebrox", "be_like": ["Yahweh", "The Messiah", "Godzilla"], "like_tags": ["landscape", "adventure"]})
->>>>>>> a9e979ff3da4c6930ab5edab270a3b384143d87e
-
-=======
     sols = []
     q = models.Reg.query.all()
     for line in q:
         if query in line.name.split(" "):
             sols.append({"name": str(line.name),"link": str(line.hash)})
     return json.dumps(sols)
->>>>>>> 745a7103721c6d22a30992fafff05dfe32b4c859
 
 def record(name, link):
     reg = models.Reg(name, "https://ipfs.io/ipfs/"+link+"/")
