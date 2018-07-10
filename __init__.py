@@ -78,6 +78,16 @@ def listed():
 
 
 if __name__ == '__main__':
+    app = Flask(__name__)
+    app.config.from_pyfile('utils/config.py')
+
+    db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
+    from utils import models
+    db.create_all()
+
+    cors = CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
     # Deploying
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
