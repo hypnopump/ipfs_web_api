@@ -23,7 +23,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def home():
-    return "IPFS Decentralized Webpages Under Construction"
+    return listed()
 
 @cross_origin()
 @app.route('/add/<name>/<link>/')
@@ -37,10 +37,17 @@ def queried(query):
     return search(query)
 
 @cross_origin()
+@app.route('/del/<name>/<link>/')
+def delete(name, link):
+    if erase(name, link):
+        return "SUCCESS!"
+    else:
+        return "FAILURE"
+
+@cross_origin()
 @app.route('/<error>/')
 def err(error):
     return "Error"
-
 
 def search(query):
     sols = []
@@ -55,6 +62,19 @@ def record(name, link):
     db.session.add(reg)
     db.session.commit()
     return True
+
+def erase(name, link):
+    reg = models.Reg.query.filter_by(username='name').first()
+    db.session.delete(reg)
+    db.session.commit()
+    return True
+
+def listed():
+    sols = []
+    q = models.Reg.query.all()
+    for line in q:
+        sols.append({"name": str(line.name),"link": str(line.hash)})
+    return json.dumps(sols)
 
 
 if __name__ == '__main__':
